@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>User Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Welcome, <span th:text="${username}"></span>!</h2>
+            <p>You are logged in as a user</p>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+        </div>
+    </body>
+</html>
