@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Movies</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Manage Movies</h2>
+
+    <div class="mb-3">
+        <a class="btn btn-primary" th:href="@{/admin/movies/add}">Add Movie</a>
+        <a class="btn btn-secondary" th:href="@{/admin}">Back to Admin Page</a>
+    </div>
+
+    <h3>All Movies</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Release Date</th>
+            <th>Video Link</th>
+            <th>Poster</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.id}">1</td>
+            <td th:text="${movie.title}">Title</td>
+            <td th:text="${movie.releaseDate}">2024-01-01</td>
+            <td>
+                <a th:href="${movie.videoLink}" target="_blank">Watch</a>
+            </td>
+            <td>
+                <img th:src="${movie.poster}" alt="Poster" style="height: 100px;">
+            </td>
+            <td>
+                <a th:href="@{'/admin/movies/edit/' + ${movie.id}}" class="btn btn-primary">Edit</a>
+                <a th:href="@{'/admin/movies/delete/' + ${movie.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

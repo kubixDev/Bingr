@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Add Movie</h2>
+
+    <form th:action="@{/admin/movies/add}" method="post">
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">Title:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter movie title">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="releaseDate" class="col-sm-2 col-form-label">Release Date:</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="videoLink" class="col-sm-2 col-form-label">Video Link:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="videoLink" name="videoLink" placeholder="Enter video link">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="poster" class="col-sm-2 col-form-label">Poster URL:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="poster" name="poster" placeholder="Enter poster URL">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Add Movie</button>
+            </div>
+        </div>
+    </form>
+
+    <a class="btn btn-secondary" href="/admin/movies">Back to Manage Movies</a>
+</div>
+</body>
+</html>
