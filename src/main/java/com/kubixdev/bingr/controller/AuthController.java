@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import java.security.Principal;
 import java.util.Collections;
 
 @Controller
@@ -78,19 +77,5 @@ public class AuthController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("registerDTO", new RegisterDTO());
         return "register";
-    }
-
-    @GetMapping("/home")
-    public String home(Model model, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).get();
-        model.addAttribute("username", user.getUsername());
-        return "home";
-    }
-
-    @GetMapping("/admin")
-    public String admin(Model model, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).get();
-        model.addAttribute("username", user.getUsername());
-        return "admin";
     }
 }
