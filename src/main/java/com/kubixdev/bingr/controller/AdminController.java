@@ -21,7 +21,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String admin(Model model, Principal principal) {
+    public String admin(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         model.addAttribute("username", user.getUsername());

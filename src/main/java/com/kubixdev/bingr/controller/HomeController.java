@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -27,7 +26,7 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String home(Model model, Principal principal, HttpServletRequest request) {
+    public String home(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         model.addAttribute("username", user.getUsername());
