@@ -30,6 +30,17 @@ public class DetailsController {
     public String movieDetails(@PathVariable int id, Model model) {
         Movie movie = movieRepository.getById(id).orElseThrow(() -> new IllegalArgumentException("Movie not found"));
         model.addAttribute("movie", movie);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            User user = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+            model.addAttribute("isSubscribed", !"none".equals(user.getSubscriptionPlan()));
+        }
+        else {
+            model.addAttribute("isSubscribed", false);
+        }
+
         return "movie-details";
     }
 

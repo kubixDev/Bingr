@@ -63,6 +63,8 @@ public class AuthController {
         Role roles = roleRepository.findByName("USER").get();
         user.setRoles(Collections.singletonList(roles));
 
+        user.setSubscriptionPlan("none");
+
         userRepository.save(user);
         return "redirect:/login?success";
     }
