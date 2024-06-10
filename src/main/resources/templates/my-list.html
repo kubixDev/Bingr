@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My List - Bingr</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #121420 !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mt-5 {
+            margin-top: 3% !important;
+        }
+
+        .heading-title {
+            margin-bottom: 3%
+        }
+
+        .movie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+            margin-bottom: 80px;
+        }
+
+        .movie-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: #2A2E49;
+            border-radius: 20px;
+            padding: 0;
+        }
+
+        .movie-item img {
+            width: 130px;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .movie-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            padding-left: 15px;
+        }
+
+        .movie-title {
+            color: #EDF2F4;
+            font-size: 25px;
+            margin: 0;
+        }
+
+        .btn-custom {
+            background-color: #5E6391;
+            border: none;
+            border-radius: 10px;
+            color: #EDF2F4;
+            width: 160px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn-custom:hover {
+            background-color: #D80032;
+        }
+
+        .btn-custom:active {
+            background-color: #EF233C !important;
+            opacity: 1 !important;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: #EDF2F4 !important;
+            margin-left: 3%;
+        }
+
+        .navbar-nav {
+            margin-left: 3%;
+        }
+
+        .nav-link {
+            color: #EDF2F4 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #8D99AE !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #EF233C !important;
+        }
+
+        .custom-toggler.navbar-toggler {
+            border-color: #121420;
+            border-width: 2px;
+            border-radius: 10px;
+            color: #EDF2F4 !important;
+            margin-right: 3%;
+        }
+
+        .custom-toggler.navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu {
+            background-color: #2A2E49 !important;
+        }
+
+        .dropdown-item {
+            color: #EDF2F4 !important;
+            height: 40px;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: #1C1F31 !important;
+            color: #EDF2F4 !important;
+        }
+
+        .nav-dropdown {
+            margin-right: 3%;
+        }
+
+        @media (max-width: 991px) {
+            .nav-dropdown {
+                padding-left: 3%;
+                padding-top: 10%;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2A2E49;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg py-3 navbar-dark" style="background-color: #1C1F31;">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">Bingr</a>
+
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${currentPath == '/home' ? 'active' : ''}" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${currentPath == '/my-list' ? 'active' : ''}" th:href="@{/my-list}">My List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${currentPath == '/pricing' ? 'active' : ''}" th:href="@{/pricing}">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:classappend="${currentPath == '/about' ? 'active' : ''}" th:href="@{/about}">About</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav nav-dropdown ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="fw-bold" th:text="${username}"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <form th:action="@{/settings}" method="post">
+                                <button class="dropdown-item" type="submit">Settings</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+    <h3 class="text-white heading-title">My List</h3>
+    <div class="movie-list">
+        <div th:each="movie : ${movies}" class="movie-item">
+            <img th:src="${movie.poster}" alt="Movie Poster">
+            <div class="movie-info">
+                <p class="movie-title" th:text="${movie.title}"></p>
+                <form th:action="@{'/delete-movie/' + ${movie.id}}" method="post">
+                    <button type="submit" class="btn-custom">Remove from list</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+</html>
