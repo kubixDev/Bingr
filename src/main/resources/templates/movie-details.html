@@ -83,16 +83,24 @@
         }
 
         .video-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 80px;
-            margin-bottom: 80px;
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: 80px auto;
+        }
+
+        .video-container::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%;
         }
 
         .video-container iframe {
-            width: 80%;
-            max-width: 800px;
-            height: 450px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: 2px solid #EF233C;
             border-radius: 10px;
         }
@@ -116,6 +124,25 @@
         .btn-custom:active {
             background-color: #EF233C !important;
             opacity: 1 !important;
+        }
+
+        .payment-plan {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #EF233C;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #EDF2F4;
+            margin: 80px 30%;
+        }
+
+        .payment-plan a {
+            margin-top: 30px;
         }
 
         ::-webkit-scrollbar {
@@ -149,12 +176,17 @@
                 <button class="btn btn-custom" type="submit">Add to My List</button>
             </form>
         </div>
-
     </div>
 </div>
 
-<div class="video-container">
-    <iframe th:src="'https://www.youtube.com/embed/' + ${movie.videoLink.split('v=')[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div>
+    <div th:if="${isSubscribed}" class="video-container">
+        <iframe th:src="'https://www.youtube.com/embed/' + ${movie.videoLink.split('v=')[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div th:if="${!isSubscribed}" class="payment-plan">
+        <p>To gain access to the content, please purchase a subscription</p>
+        <a th:href="@{/pricing}" class="btn btn-custom">Choose a plan</a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
