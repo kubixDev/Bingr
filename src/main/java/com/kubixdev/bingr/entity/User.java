@@ -1,5 +1,6 @@
 package com.kubixdev.bingr.entity;
 
+import com.kubixdev.bingr.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,22 +59,32 @@ public class User {
     /////////////////////
     // SUBSCRIPTION
     /////////////////////
-    public boolean isSubscriptionActive() {
+    public boolean isSubscriptionActive(UserRepository userRepository) {
         if ("none".equals(subscriptionPlan) || subscriptionDate == null) {
             return false;
         }
 
         LocalDate currentDate = LocalDate.now();
         LocalDate subscriptionEndDate = subscriptionDate.plusMonths(1);
-        return !currentDate.isAfter(subscriptionEndDate);
+        if (currentDate.isAfter(subscriptionEndDate)) {
+            resetSubscription(userRepository);
+            return false;
+        }
+        return true;
     }
 
-    public long getDaysLeftInSubscription() {
-        if (!isSubscriptionActive()) {
+    public long getDaysLeftInSubscription(UserRepository userRepository) {
+        if (!isSubscriptionActive(userRepository)) {
             return 0;
         }
 
         LocalDate subscriptionEndDate = subscriptionDate.plusMonths(1);
         return ChronoUnit.DAYS.between(LocalDate.now(), subscriptionEndDate);
+    }
+
+    private void resetSubscription(UserRepository userRepository) {
+        this.subscriptionPlan = "none";
+        this.subscriptionDate = null;
+        userRepository.save(this);
     }
 }

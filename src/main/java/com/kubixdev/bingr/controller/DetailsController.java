@@ -35,7 +35,8 @@ public class DetailsController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             User user = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-            model.addAttribute("isSubscribed", !"none".equals(user.getSubscriptionPlan()));
+            boolean isSubscribed = user.isSubscriptionActive(userRepository);
+            model.addAttribute("isSubscribed", isSubscribed);
         }
         else {
             model.addAttribute("isSubscribed", false);

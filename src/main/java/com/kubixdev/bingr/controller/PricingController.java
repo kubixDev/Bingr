@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
-
 @Controller
 public class PricingController {
 
@@ -38,7 +36,7 @@ public class PricingController {
             model.addAttribute("subscriptionStartDate", null);
         }
         else {
-            model.addAttribute("daysLeft", user.getDaysLeftInSubscription());
+            model.addAttribute("daysLeft", user.getDaysLeftInSubscription(userRepository));
             model.addAttribute("isSubscribed", true);
             model.addAttribute("subscriptionStartDate", user.getSubscriptionDate());
         }
