@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/kubixDev/Bingr/master/readmeImages/bingrLogo.png" width="400"/>
+<img src="https://raw.githubusercontent.com/kubixDev/Bingr/master/readmeImages/bingrLogo.png" width="370"/>
 
 [![forthebadge](https://raw.githubusercontent.com/kubixDev/Bingr/master/readmeImages/madeWithJavaBadge.svg)](https://forthebadge.com)  [![forthebadge](https://raw.githubusercontent.com/kubixDev/Bingr/master/readmeImages/builtWithLoveBadge.svg)](https://forthebadge.com)
 
