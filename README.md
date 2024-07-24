@@ -34,6 +34,7 @@ The project uses
 * **MySQL** - database for storing user information, movies, subscriptions, and other relevant data
 * **Lombok** - library to reduce boilerplate code
 * **Hibernate** - framework used to initialize the database and map objects to tables
+* **Thymeleaf** - a server-side template engine
 * **HTML, CSS, Bootstrap** - for creating a responsive and modern web design
 * **JavaScript** - for adding interactive frontend elements
 * **Maven** - a default build automation tool
